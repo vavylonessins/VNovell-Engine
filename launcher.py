@@ -59,7 +59,12 @@ try:
 
 	
 	print(f"[LOG] [{__file__}] Start loading projects list...")
-	projects = ini.load("./saves/projects.ini")
+	try:
+		projects = ini.load("./saves/projects.ini")
+	except FileNotFoundError:
+		with open("./saves/projects.ini", "wt") as f:
+			f.write("")
+		projects = ini.load("./saves/projects.ini")
 	print(f"[LOG] [{__file__}] Done")
 
 	print(f"[LOG] [{__file__}] Start opening widow...")
