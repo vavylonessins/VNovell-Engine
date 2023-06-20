@@ -7,7 +7,11 @@ import sys
 import use8
 
 
-projects = ini.load("./saves/projects.ini")
+try:
+	projects = ini.load("./saves/projects.ini")
+except FileNotFoundError:
+	os.system("touch ./saves/projects.ini")
+	projects = ini.load("./saves/projects.ini")
 clock = time.Clock()
 
 
