@@ -1,5 +1,4 @@
 from tracer import *
-import extui
 from ui_config import *
 from pygame import *
 

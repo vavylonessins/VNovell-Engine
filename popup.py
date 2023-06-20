@@ -1,6 +1,5 @@
 from pygame import *
 import sys
-import os
 import b64
 
 

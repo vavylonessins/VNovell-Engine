@@ -1,5 +1,5 @@
 from parglare import Parser, Grammar
-from pprint import pprint, pformat
+from pprint import pformat
 
 
 with open("vns-grammar.glr", "rt") as f:

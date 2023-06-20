@@ -7,10 +7,8 @@ try:
     print(f"[LOG] [{__file__}] loading modules...")
     traceon()
     from vns_parser import parser
-    from pprint import pprint, pformat
     from time import sleep
     from pygame import *
-    from debugger import Debugger
     import rlfs
     import ui_vm as ui
     from ui_config_vm import *
