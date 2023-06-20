@@ -1,5 +1,5 @@
 import os, sys
-from base64 import b16encode
+from base64 import b64encode
 import b64
 
 
