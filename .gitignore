@@ -3,3 +3,5 @@ __vncache__
 HT
 saves/projects.ini
 .*
+*.code*
+*.vs?code*
