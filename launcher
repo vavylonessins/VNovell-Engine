@@ -1,2 +1,1 @@
-python3 launcher.py
-
+python3 launcher.py >log.txt
