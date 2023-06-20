@@ -11,14 +11,12 @@ def compile(n):
     for func in n:
         func_name = func["name"]
 
-        code = "({code must be here})"
+        code = "("
 
         for command in func["body"]:
-            code = code.replace("{code must be here}",
-                                repr(compile_line(command)) +
-                                ",{code must be here}")
+            code += repr(compile_line(command)) + ", "
 
-        code = code.replace(",{code must be here})", ")")
+        code = code[:-2] + ")"
 
         ret[func_name] = code
 
