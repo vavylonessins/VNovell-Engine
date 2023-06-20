@@ -1,5 +1,5 @@
 from include import include
-from parser import parser
+from vns_parser import parser
 from pprint import pprint, pformat
 from thread import thread
 from pygame import *
@@ -11,7 +11,7 @@ import os, sys
 import vnb
 import json
 import shell
-import use8
+import b64
 
 
 very_long_text = "This is a really long sentence with a couple of breaks.\nSometimes it will break even if there isn't a break " \

@@ -1,119 +1,31 @@
 from tracer import *
 import extui
 import traceback
-from nop import *
 
 
 try:
-	print(f"[LOG] [{__file__}] start modules load")
-
-	print(f"    - include - ", end="")
+	print(f"[LOG] [{__file__}] loading modules...")
 	traceon()
-	from include import include
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - parser - ", end="")
-	traceon()
-	from parser import parser
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - pprint - ", end="")
-	traceon()
+	from vns_parser import parser
 	from pprint import pprint, pformat
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - time - ", end="")
-	traceon()
 	from time import sleep
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - pygame - ", end="")
-	traceon()
 	from pygame import *
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - debugger - ", end="")
-	traceon()
 	from debugger import Debugger
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - rlfs - ", end="")
-	traceon()
 	import rlfs
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - ui - ", end="")
-	traceon()
 	import ui_vm as ui
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - ui_config - ", end="")
-	traceon()
 	from ui_config_vm import *
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - extui - ", end="")
-	traceon()
-	import extui
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - os - ", end="")
-	traceon()
 	import os
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - sys - ", end="")
-	traceon()
 	import sys
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - vnb - ", end="")
-	traceon()
 	import vnb
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - json - ", end="")
-	traceon()
 	import json
+	import b64
 	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - shell - ", end="")
-	traceon()
-	import shell
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - use8 - ", end="")
-	traceon()
-	import use8
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - log - ", end="")
-	traceon()
-	import log
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
+	print(f"[LOG] [{__file__}] Done with {round(get_trace(), 3)} ms")
 
 	# init file systems
 	print(f"[LOG] [{__file__}] mounting file systems...")
 	print(f"    - res://")
-	res = rlfs.Setup(use8.decode(sys.argv[-1]))
+	res = rlfs.Setup(b64.decode(sys.argv[-1]))
 	print(f"    - res://scripts/")
 	scripts_fs = rlfs.Setup(res.get_name("res://scripts"))
 	print(f"[LOG] [{__file__}] Done")

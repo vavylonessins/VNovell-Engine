@@ -57,7 +57,7 @@ class Executor:
 
 		self.images: dict[str,Surface] = {}
 
-		self.scene_cmd = 'nop()'
+		self.scene_cmd = r'(lambda: None)()'
 
 		self.d_proc = False
 		self.d_func = None

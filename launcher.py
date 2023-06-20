@@ -1,77 +1,49 @@
 from tracer import *
 import traceback
 import extui
+import os
 
 
-__import__("os").system(("clear","cls")[__import__("os").name=="nt"])
-__import__("os").environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
+os.system(("clear","cls")[os.name=="nt"])
+os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
+
+
+__file__ = os.path.abspath(__file__)
 
 
 try:
-	print(f"[LOG] [{__file__}] Start modules load...")
-
-	print(f"    - ui - ", end="")
+	print(f"[LOG] [{__file__}] loading modules...")
 	traceon()
 	import ui
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - ui_config - ", end="")
-	traceon()
 	from ui_config import *
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - pygame - ", end="")
-	traceon()
 	from pygame import *
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - ini - ", end="")
-	traceon()
 	import ini
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-	print(f"    - callbacks - ", end="")
-	traceon()
 	from callbacks import *
 	traceoff()
-	print(round(get_trace(), 3), "ms")
+	print(f"[LOG] [{__file__}] done with {round(get_trace(), 3)} ms")
 
-	print(f"    - shell - ", end="")
-	traceon()
-	import shell
-	traceoff()
-	print(round(get_trace(), 3), "ms")
-
-
-	print(f"[LOG] [{__file__}] Done")
-
-	print(f"[LOG] [{__file__}] Start video init...")
+	print(f"[LOG] [{__file__}] initializing video...")
 	init()
 	display.init()
 	font.init()
 	mixer.init()
 	clock = time.Clock()
-	print(f"[LOG] [{__file__}] Done")
+	print(f"[LOG] [{__file__}] done")
 
 	
-	print(f"[LOG] [{__file__}] Start loading projects list...")
+	print(f"[LOG] [{__file__}] loading projects list...")
 	try:
 		projects = ini.load("./saves/projects.ini")
 	except FileNotFoundError:
 		os.system("touch ./saves/projects.ini")
 		projects = ini.load("./saves/projects.ini")
-	print(f"[LOG] [{__file__}] Done")
+	print(f"[LOG] [{__file__}] done")
 
-	print(f"[LOG] [{__file__}] Start opening widow...")
+	print(f"[LOG] [{__file__}] opening widow...")
 	win = ui.Window(name="VNEngine Launcher", icon="logo.png")
-	print(f"[LOG] [{__file__}] Done")
+	print(f"[LOG] [{__file__}] done")
 
 	def wininit(size):
-		print(f"[LOG] [{__file__}] Start wininit")
 		global win, tit, mas, cn1, cn2, st1, st2, prj, pnl
 		win.resize(Vector2(size))
 		tit = ui.Title(win, "VNEngine Launcher", spos=Vector2(1,0))
@@ -84,14 +56,14 @@ try:
 		pnl = ui.ButtonList(cn2,["Create","Edit","Delete","Build","Run","Open Folder"],
 			[cb_create,cb_edit,cb_delete,cb_build,cb_run,cb_open_folder],[prj.get_active],
 			rpos=Vector2(margin,0),spos=Vector2(1,2),dsiz=Vector2(0,-st2.rect.h))
-		print(f"[LOG] [{__file__}] Done")
 
 
-	print(f"[LOG] [{__file__}] wininit((800,600))")
+	print(f"[LOG] [{__file__}] initializing window...")
 	wininit((800,600))
+	print(f"[LOG] [{__file__}] done")
 
 	run = 1
-	print(f"[LOG] [{__file__}] Start main video loop")
+	print(f"[LOG] [{__file__}] main video loop")
 	while run:
 		clock.tick(120)
 		for e in win.get_events():
@@ -124,8 +96,7 @@ try:
 				pnl.draw(win.surf)
 		except: pass
 		display.flip()
-	print(f"[LOG] [{__file__}] End main video loop...")
-	print(f"[LOG] [{__file__}] Done")
+	print(f"[LOG] [{__file__}] end of main video loop")
 	display.quit()
 except Exception as e:
 	print(traceback.format_exc())

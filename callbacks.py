@@ -1,10 +1,9 @@
-from showinfm import show_in_file_manager as sifm
 from pygame import *
 from thread import *
 import ini
 import os
 import sys
-import use8
+import b64
 
 
 try:
@@ -29,7 +28,7 @@ def cb_delete(active_project):
 
 
 def cb_run(active_project):
-	folder = use8.encode(projects[active_project])
+	folder = b64.encode(projects[active_project])
 	shell = sys.executable+" vne-vm.py "+folder
 	run_threaded(shell)
 
@@ -39,6 +38,7 @@ def cb_build(active_project):
 
 
 def cb_open_folder(active_project):
+	from showinfm import show_in_file_manager as sifm
 	sifm(projects[active_project])
 
 

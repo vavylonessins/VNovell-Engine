@@ -1,11 +1,11 @@
 import os, sys
 from base64 import b16encode
-import use8
+import b64
 
 
 def popup(typ, title, text, extra="None"):
-	os.system(sys.executable+" popup.py "+use8.encode(typ)+" "+
-		use8.encode(title)+" "+use8.encode(text)+" "+use8.encode(extra))
+	os.system(sys.executable+" popup.py "+b64.encode(typ)+" "+
+		b64.encode(title)+" "+b64.encode(text)+" "+b64.encode(extra))
 	if typ==POPUP_ERROR:
 		sys.exit()
 

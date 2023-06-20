@@ -1,15 +1,15 @@
 from pygame import *
 import sys
 import os
-import use8
+import b64
 
 
 HEIGHT = 128
 MARGIN = 32
 
 _fp, typ, title, desc, extra = sys.argv
-typ, title, desc, extra = use8.decode(typ), use8.decode(title), \
-	use8.decode(desc), use8.decode(extra)
+typ, title, desc, extra = b64.decode(typ), b64.decode(title), \
+	b64.decode(desc), b64.decode(extra)
 
 if typ == "1":
 	display.set_mode((1,1))
