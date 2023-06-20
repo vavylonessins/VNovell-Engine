@@ -1,0 +1,103 @@
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-ed.py] Start modules load...
+    - video - 0.115 ms
+    - ui - 0.001 ms
+    - ui_config - 0.0 ms
+    - pygame - 0.0 ms
+    - ini - 0.0 ms
+    - callbacks - 0.014 ms
+    - shell - 0.0 ms
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-ed.py] Done
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-ed.py] Start video init...
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-ed.py] Done
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-ed.py] Start loading projects list...
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-ed.py] Done
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-ed.py] Start opening widow...
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-ed.py] Done
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-ed.py] wininit((800,600))
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-ed.py] Start wininit
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-ed.py] Done
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-ed.py] Start main video loop
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-vm.py] start modules load
+    - include - 0.0 ms
+    - parser - 0.069 ms
+    - pprint - 0.0 ms
+    - time - 0.0 ms
+    - pygame - 0.125 ms
+    - debugger - 0.002 ms
+    - video - 0.0 ms
+    - rlfs - 0.0 ms
+    - ui - 0.0 ms
+    - extui - 0.0 ms
+    - os - 0.0 ms
+    - sys - 0.0 ms
+    - vnb - 0.0 ms
+    - json - 0.0 ms
+    - shell - 0.0 ms
+    - use8 - 0.0 ms
+    - log - 0.0 ms
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-vm.py] mounting file systems...
+    - res://
+    - res://scripts/
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-vm.py] Done
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-vm.py] loading project config...
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-vm.py] Done
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-vm.py] index scripts file systems...
+    - res://script.vns
+    - res://options.py
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-vm.py] Done
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-vm.py] compiling vns...
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-vm.py] Bootstrap vnb pseudo-bytecode
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-vm.py] run debugger
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-vm.py] vns: call init
+[LOG] [/home/talisman/Рабочий стол/VNE/vnb.py] executing vnb function "init"...
+[DBG] [init:1] python
+[DBG] [init:1] 
+Init start.
+[DBG] [init:2] load
+[DBG] [init:2]     image
+[DBG] [init:2] load
+[DBG] [init:2] 
+[DBG] [init:3] load
+[DBG] [init:3]     image
+[DBG] [init:3] load
+[DBG] [init:3] 
+[DBG] [init:4] wait
+[DBG] [init:4] 
+[DBG] [init:5] python
+[DBG] [init:5] 
+Init complete.
+[LOG] [/home/talisman/Рабочий стол/VNE/vnb.py] Done
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-vm.py] start UI setup...
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-vm.py] Done
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-vm.py] starting window...
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-vm.py] Done
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-vm.py] vns: call splash
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-vm.py] ...
+[LOG] [/home/talisman/Рабочий стол/VNE/vnb.py] executing vnb function "splash"...
+[DBG] [splash:1] scene
+[DBG] [splash:1]     color
+[DBG] [splash:1]         const
+[DBG] [splash:1]     color
+[DBG] [splash:1] scene
+[DBG] [splash:1] 
+[DBG] [splash:2] show
+[DBG] [splash:2] 
+[DBG] [splash:3] wait
+[DBG] [splash:3] 
+[DBG] [splash:4] hide
+[DBG] [splash:4] 
+[DBG] [splash:5] scene
+[DBG] [splash:5] 
+[DBG] [splash:6] wait
+[DBG] [splash:6] 
+[DBG] [splash:7] scene
+[DBG] [splash:7]     color
+[DBG] [splash:7]         const
+[DBG] [splash:7]     color
+[DBG] [splash:7] scene
+[DBG] [splash:7] 
+[LOG] [/home/talisman/Рабочий стол/VNE/vnb.py] Done
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-vm.py] Done
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-ed.py] QUIT event
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-ed.py] End main video loop...
+[LOG] [/home/talisman/Рабочий стол/VNE/vne-ed.py] Done

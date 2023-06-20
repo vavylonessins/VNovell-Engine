@@ -1,0 +1,27 @@
+root: (func | tcomment)*;
+	func: tname ":" body tend;
+		body: command*;
+			command: sload | tpython | sscene | sshow | swait | shide | sreplic | tcomment;
+				sload: "load" loadable "from" sourcable "as" tname+;
+					loadable: "image";
+					sourcable: tstring;
+				sscene: "scene" (scolor | simage) effect?;
+					scolor: "color" tcolor | "color" tname;
+					simage: "image" tname+;
+					effect: "with" tname tnum?;
+				sshow: "show" showable effect?;
+					showable: stext | image;
+						stext: "text" tstring;
+				swait: "wait" tnum;
+				shide: "hide" ("text" | "image") effect?;
+				sreplic: (tstring ":")? tstring+;
+
+terminals
+
+tpython: /\/[^\/]*\//;
+tcomment: /\$[^\$]*\$/;
+tend: "end.";
+tcolor: /\#[0-9A-Fa-f]{6}|\#[0-9A-Fa-f]{8}/;
+tname: /[A-Za-z_]\w*/;
+tstring: /"[^"]*"/;
+tnum: /[+-]?([1-9][0-9]*|0)(\.[1-9][0-9]*)?/;

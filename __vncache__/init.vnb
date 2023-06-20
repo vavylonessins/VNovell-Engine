@@ -1,0 +1,1 @@
+(('python', {'code': 'print("Init start.")'}),('load', {'type': 'image', 'path': 'res://images/bg/splash.png', 'name': ['splash_screen']}),('load', {'type': 'image', 'path': 'res://images/bg/mc_room.jpg', 'name': ['mc_room']}),('wait', {'duration': 1}),('python', {'code': 'print("Init complete.")'}))
