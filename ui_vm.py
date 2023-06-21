@@ -1,4 +1,5 @@
 from pygame import *
+from ui_config import *
 
 
 def init(style_file):
