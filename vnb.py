@@ -106,7 +106,9 @@ class Executor:
             elif cmd[0] == "python":
                 self.dbg += "python"
                 self.dbg.pop()
-                exec(cmd[1]["code"])
+                try:exec(cmd[1]["code"])
+                except Exception as e:
+                    popup(POPUP_ERROR, e.__class__.__name__, f"({self.func},{self.line}) "+str(e))
             elif cmd[0] == "wait":
                 self.dbg += "wait"
                 sleep(cmd[1]["duration"])
