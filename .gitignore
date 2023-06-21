@@ -6,3 +6,4 @@ saves/projects.ini
 *.code*
 *.vs?code*
 log.txt
+tmp.txt

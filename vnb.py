@@ -3,7 +3,6 @@ from time import sleep
 from extui import *
 from colors import *
 from thread import *
-from transfer import *
 
 
 def compile(n):
@@ -45,7 +44,6 @@ class NoneDebugger:
         self.dump()
 
     def dump(self):
-        return
         print(f"[DBG] [{self.execer.func}:{self.execer.line}] " +
               ("    "*(len(self.pos)-1)+self.pos[-1] if self.pos else ""))
 
@@ -65,8 +63,6 @@ class Executor:
         self.process, self.error = 0, 0
 
         self.dbg = NoneDebugger(self)
-
-        self.send = DataSender()
 
     def execute_threaded(self, func):
         self.process, self.error = 1, 0
@@ -143,8 +139,11 @@ class Executor:
                             popup(POPUP_ERROR, "ColorError",
                                   f"({self.func},{self.line}) invalid color argument")
                         self.dbg.pop()
-                    scene_cmd = f'display.get_surface().fill(({color.r}, {color.g}, {color.b}))'
-                    self.send.send(scene_cmd)
+                    print(f"[VNB] [{self.func}:{self.line}] Coloring scene...")
+                    with open("tmp.txt", "w") as tmp:
+                        tmp.write(f"{color.r} {color.g} {color.b}")
+                    self.scene_cmd = f'display.get_surface().fill(({color.r}, {color.g}, {color.b}))'
+                    print(f"[VNB] [{self.func}:{self.line}] Done")
                     self.dbg.pop()
                 self.dbg.pop()
             else:
