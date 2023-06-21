@@ -45,8 +45,9 @@ class NoneDebugger:
         self.dump()
 
     def dump(self):
-        print(f"[DBG] [{self.execer.func}:{self.execer.line}] " +
-              ("    "*(len(self.pos)-1)+self.pos[-1] if self.pos else ""))
+        return
+        # print(f"[DBG] [{self.execer.func}:{self.execer.line}] " +
+        #      ("    "*(len(self.pos)-1)+self.pos[-1] if self.pos else ""))
 
 
 class Executor:
@@ -126,7 +127,7 @@ class Executor:
                         self.dbg += "const"
                         try:
                             color = Color(cmd[1]["data"]["value"])
-                            #popup(POPUP_INFO, "Scene color",
+                            # popup(POPUP_INFO, "Scene color",
                             #      f"Scene color is {cmd[1]['data']['value']}")
                         except:
                             popup(POPUP_ERROR, "ColorError",
@@ -140,8 +141,9 @@ class Executor:
                             popup(POPUP_ERROR, "ColorError",
                                   f"({self.func},{self.line}) invalid color argument")
                         self.dbg.pop()
-                    with open(tempfile.gettempdir()+"/vne.tmp","wt") as f:
-                        f.write(f'display.get_surface().fill(({color.r}, {color.g}, {color.b}))')
+                    with open(tempfile.gettempdir()+"/vne_bgr.tmp", "wt") as f:
+                        f.write(
+                            f'display.get_surface().fill(({color.r}, {color.g}, {color.b}))')
                     self.dbg.pop()
                 self.dbg.pop()
             else:

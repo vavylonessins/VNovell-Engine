@@ -134,15 +134,21 @@ try:
 
     clock = time.Clock()
 
+    win.surf.fill(0)
+
     while execer.process:
         clock.tick(90)
         for e in event.get():
             if e.type == QUIT:
                 execer.stop()
         try:
-            with open(tempfile.gettempdir()+"/vne.tmp","rt") as f:
-                cmd = f.read()
+            with open(tempfile.gettempdir()+"/vne_bgr.tmp", "rt") as f:
+                cmd = f.read().strip()
+            if cmd:
                 exec(cmd)
+            else:
+                with open(tempfile.gettempdir()+"/vne_bgr.tmp", "wt") as f:
+                    f.write("")
         except:
             pass
         try:
