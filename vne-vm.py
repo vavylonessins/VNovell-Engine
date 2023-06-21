@@ -12,6 +12,7 @@ try:
     import rlfs
     import ui_vm as ui
     from ui_config_vm import *
+    from transfer import *
     import os
     import sys
     import vnb
@@ -76,13 +77,15 @@ try:
         with open(f"__vncache__/{func}.vnb", "wt") as f:
             f.write(binary[func])
 
-    print(f"[LOG] [{__file__}] Bootstrap vnb pseudo-bytecode")
+    print(f"[LOG] [{__file__}] Bootstrap vnb pseudo-bytecode...")
+
+    recv = DataReceiver()
+
+    recv.listen()
 
     execer = vnb.Executor(res, binary)
 
-    # dbg = Debugger(execer)
-
-    # execer.dbg = dbg
+    print(f"[LOG] [{__file__}] Done")
 
     ## GAME EXECUTING STARTS HERE ##
 
@@ -133,13 +136,19 @@ try:
 
     clock = time.Clock()
 
+    print("execer.process:",execer.process)
+
     while execer.process:
         clock.tick(90)
         for e in event.get():
             if e.type == QUIT:
                 execer.stop()
         win.surf.fill(0)
-        exec(execer.scene_cmd)
+        scene_cmd = recv.receive()
+        print("execer.scene_cmd:",scene_cmd)
+        if scene_cmd != "(lambda: None)()":
+            exec(execer.scene_cmd)
+            scene_cmd = "(lambda: None)()"
         try:
             win.surf.blit(sysind_fnt.render(
                 str(int(clock.get_fps())), 1, sysind_fg), (10, 10))

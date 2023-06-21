@@ -38,13 +38,13 @@ try:
     print(f"[LOG] [{__file__}] done")
 
     print(f"[LOG] [{__file__}] opening widow...")
-    win = ui.Window(name="VNEngine Launcher", icon="logo.png")
+    win = ui.Window(name="VNovell Engine Launcher", icon="logo.png")
     print(f"[LOG] [{__file__}] done")
 
     def wininit(size):
         global win, tit, mas, cn1, cn2, st1, st2, prj, pnl
         win.resize(Vector2(size))
-        tit = ui.Title(win, "VNEngine Launcher", spos=Vector2(1, 0))
+        tit = ui.Title(win, "VNovell Engine Launcher", spos=Vector2(1, 0))
         mas = ui.Container(win, Vector2(0, 0), Vector2(
             1, 2), Vector2(win.rect.w, win.rect.h-tit.rect.h))
         cn1 = ui.Container(mas, Vector2(margin, margin), Vector2(
