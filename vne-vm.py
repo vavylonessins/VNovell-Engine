@@ -17,6 +17,7 @@ try:
     import vnb
     import json
     import b64
+    import tempfile
     traceoff()
     print(f"[LOG] [{__file__}] Done with {round(get_trace(), 3)} ms")
 
@@ -138,21 +139,12 @@ try:
         for e in event.get():
             if e.type == QUIT:
                 execer.stop()
-        with open("tmp.txt","r") as tmp:
-            data = str(tmp.read())
-            print("@"*10)
-            print(data)
-            print("@"*10)
-            r = int((data.split())[0])
-            g = int((data.split())[1])
-            b = int((data.split())[2])
-            print("@"*10)
-            print(r)
-            print(g)
-            print(b)
-            print("@"*10)
-        win.surf.fill((r,g,b))
-        exec(execer.scene_cmd)
+        try:
+            with open(tempfile.gettempdir()+"/vne.tmp","rt") as f:
+                cmd = f.read()
+                exec(cmd)
+        except:
+            pass
         try:
             win.surf.blit(sysind_fnt.render(
                 str(int(clock.get_fps())), 1, sysind_fg), (10, 10))

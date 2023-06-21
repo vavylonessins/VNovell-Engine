@@ -3,6 +3,7 @@ from time import sleep
 from extui import *
 from colors import *
 from thread import *
+import tempfile
 
 
 def compile(n):
@@ -125,8 +126,8 @@ class Executor:
                         self.dbg += "const"
                         try:
                             color = Color(cmd[1]["data"]["value"])
-                            popup(POPUP_INFO, "Scene color",
-                                  f"Scene color is {cmd[1]['data']['value']}")
+                            #popup(POPUP_INFO, "Scene color",
+                            #      f"Scene color is {cmd[1]['data']['value']}")
                         except:
                             popup(POPUP_ERROR, "ColorError",
                                   f"({self.func},{self.line}) unknown color name: '{cmd[1]['data']['value']}'")
@@ -139,11 +140,8 @@ class Executor:
                             popup(POPUP_ERROR, "ColorError",
                                   f"({self.func},{self.line}) invalid color argument")
                         self.dbg.pop()
-                    print(f"[VNB] [{self.func}:{self.line}] Coloring scene...")
-                    with open("tmp.txt", "w") as tmp:
-                        tmp.write(f"{color.r} {color.g} {color.b}")
-                    self.scene_cmd = f'display.get_surface().fill(({color.r}, {color.g}, {color.b}))'
-                    print(f"[VNB] [{self.func}:{self.line}] Done")
+                    with open(tempfile.gettempdir()+"/vne.tmp","wt") as f:
+                        f.write(f'display.get_surface().fill(({color.r}, {color.g}, {color.b}))')
                     self.dbg.pop()
                 self.dbg.pop()
             else:
