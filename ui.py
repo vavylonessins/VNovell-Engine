@@ -204,7 +204,7 @@ class Container(UIAsset):
             self.render = False
         if self.border:
             if sc:
-                draw.rect(sc, border_fg, self.rect, self.border)
+                draw.rect(sc, border_fg, self.rect, self.border, 8)
 
 
 class RadioList(UIAsset):

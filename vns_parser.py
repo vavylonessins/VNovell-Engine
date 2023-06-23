@@ -67,7 +67,7 @@ actions = {
     "scolor": lambda _, n: {"type": "color", "value": n[1] if n[1][0] != "#" else parse_color(n[1])},
     "simage": lambda _, n: {"type": "image", "value": n[1]},
     "effect": lambda _, n: {"type": "effect", "mode": n[1], "duration": n[2] if n[2] is not None else 1.0},
-    "sshow": lambda _, n: Node("show", {"data": n[1], "effect": n[2]}),
+    "sshow": lambda _, n: Node("show", {"data": n[1], "color": n[2], "effect": n[3]}),
     "showable": lambda _, n: n[0],
     "stext": lambda _, n: {"type": "text", "value": n[1]},
     "swait": lambda _, n: Node("wait", {"duration": n[1]}),

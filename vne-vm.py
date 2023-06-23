@@ -76,14 +76,25 @@ try:
     for func in binary:
         with open(f"__vncache__/{func}.vnb", "wt") as f:
             f.write(binary[func])
+    
+    print(f"[LOG] [{__file__}] loading fonts...")
+
+    try:
+        text_fnt = font.Font(res.get_name("res://fonts/main-font.ttf"), 18)
+        title_fnt = font.Font(res.get_name("res://fonts/main-font.ttf"), 32)
+    except Exception as e:
+        extui.popup(extui.POPUP_ERROR, e.__class__.__name__+" while loading fonts", str(e))
+        os._exit(1)
+    
+    print(f"[LOG] [{__file__}] Done")
 
     print(f"[LOG] [{__file__}] Bootstrap vnb pseudo-bytecode")
 
-    execer = vnb.Executor(res, binary)
+    execer = vnb.Executor(res, binary, title_fnt)
 
-    # dbg = Debugger(execer)
-
-    # execer.dbg = dbg
+    def blit_centered(ds, ss):
+        pos = tuple(int(i) for i in (Vector2(ds.get_size())/2-Vector2(ss.get_size())/2))
+        ds.blit(ss, pos)
 
     ## GAME EXECUTING STARTS HERE ##
 
@@ -148,6 +159,16 @@ try:
                 exec(cmd)
             else:
                 with open(tempfile.gettempdir()+"/vne_bgr.tmp", "wt") as f:
+                    f.write("")
+        except:
+            pass
+        try:
+            with open(tempfile.gettempdir()+"/vne_fgr.tmp", "rt") as f:
+                cmd = f.read().strip()
+            if cmd:
+                exec(cmd)
+            else:
+                with open(tempfile.gettempdir()+"/vne_fgr.tmp", "wt") as f:
                     f.write("")
         except:
             pass

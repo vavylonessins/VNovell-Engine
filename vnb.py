@@ -6,6 +6,9 @@ from thread import *
 import tempfile
 
 
+TMP = tempfile.gettempdir()
+
+
 def compile(n):
     ret = {}
 
@@ -30,6 +33,13 @@ def compile_line(n):
     return n.type, n.data
 
 
+def super_color(data):
+    if data[0] == "#":
+        return ColorHex(data)
+    else:
+        return Color(data)
+
+
 class NoneDebugger:
     def __init__(self, execer):
         self.execer = execer
@@ -42,18 +52,17 @@ class NoneDebugger:
 
     def pop(self):
         self.pos.pop()
-        self.dump()
 
     def dump(self):
         return
-        # print(f"[DBG] [{self.execer.func}:{self.execer.line}] " +
-        #      ("    "*(len(self.pos)-1)+self.pos[-1] if self.pos else ""))
 
 
 class Executor:
-    def __init__(self, res, binary, scene=None):
+    def __init__(self, res, binary, fnt: font.FontType=None, scene=None):
         self.res = res
         self.code = {**binary}
+
+        self.font = fnt if fnt else font.SysFont(None, 28)
 
         self.images: dict[str, Surface] = {}
 
@@ -84,12 +93,9 @@ class Executor:
                 return
             self.line += 1
 
-            print(f"[VNB] [{self.func}:{self.line}] " +
-                  cmd[0]+" "+" ".join(tuple(repr(i) for i in cmd[1].values())))
-
             if self.func == "init" and cmd[0] in ("call", "jump"):
                 popup(POPUP_ERROR, "RightsViolanceError",
-                      f"({self.func},{self.line}) You cannot use calls or jumps in <init> function")
+                      f"({self.func},{self.line}) You cannot use calls or jumps in system functions")
 
             if cmd[0] == "load":
                 self.dbg += "load"
@@ -115,6 +121,15 @@ class Executor:
                 self.dbg.pop()
             elif cmd[0] == "show":
                 self.dbg += "show"
+                data = cmd[1]["data"]
+                if data["type"] == "text":
+                    text = data["value"]
+                    stext = self.font.render(text, 1, super_color(cmd[1]["color"]["value"]))
+                    pos = Vector2(display.get_surface().get_size())/2-Vector2(stext.get_size())/2
+                    pos = (int(pos.x), int(pos.y))
+                    image.save(stext, path:=TMP+"/vne_show_cache.png")
+                    with open(TMP+"/vne_fgr.tmp", "wt") as f:
+                        f.write(fr"blit_centered(win.surf, image.load('{path}'))")
                 self.dbg.pop()
                 pass
             elif cmd[0] == "hide":
@@ -128,9 +143,7 @@ class Executor:
                     if cmd[1]["data"]["value"][0] != "#":
                         self.dbg += "const"
                         try:
-                            color = Color(cmd[1]["data"]["value"])
-                            # popup(POPUP_INFO, "Scene color",
-                            #      f"Scene color is {cmd[1]['data']['value']}")
+                            color = super_color(cmd[1]["data"]["value"])
                         except:
                             popup(POPUP_ERROR, "ColorError",
                                   f"({self.func},{self.line}) unknown color name: '{cmd[1]['data']['value']}'")
@@ -143,9 +156,10 @@ class Executor:
                             popup(POPUP_ERROR, "ColorError",
                                   f"({self.func},{self.line}) invalid color argument")
                         self.dbg.pop()
-                    with open(tempfile.gettempdir()+"/vne_bgr.tmp", "wt") as f:
+                    with open(TMP+"/vne_bgr.tmp", "wt") as f:
                         f.write(
                             f'display.get_surface().fill(({color.r}, {color.g}, {color.b}))')
+                    self.last_bg = f'display.get_surface().fill(({color.r}, {color.g}, {color.b}))'
                     self.dbg.pop()
                 self.dbg.pop()
             else:

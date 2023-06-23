@@ -82,7 +82,7 @@ try:
             prj.handle(win.surf, e)
             if prj.active != -1:
                 pnl.handle(win.surf, e)
-        win.surf.fill((255, 255, 255))
+        win.surf.fill(main_bg)
         try:
             tit.draw(win.surf)
         except:

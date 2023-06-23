@@ -9,7 +9,7 @@ root: (func | tcomment)*;
 					scolor: "color" tcolor | "color" tname;
 					simage: "image" tname+;
 					effect: "with" tname tnum?;
-				sshow: "show" showable effect?;
+				sshow: "show" showable scolor effect?;
 					showable: stext | image;
 						stext: "text" tstring;
 				swait: "wait" tnum;
