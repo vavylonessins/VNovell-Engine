@@ -29,6 +29,8 @@ try:
     scripts_fs = rlfs.Setup(res.get_name("res://scripts"))
     print(f"[LOG] [{__file__}] Done")
 
+    TMP = tempfile.gettempdir()
+
     # load project config
     print(f"[LOG] [{__file__}] loading project config...")
     with open(res.system_get_name("res://project.json"), "rt") as f:
@@ -148,30 +150,26 @@ try:
     win.surf.fill(0)
 
     while execer.process:
-        clock.tick(90)
+        clock.tick(120)
         for e in event.get():
             if e.type == QUIT:
                 execer.stop()
         try:
-            with open(tempfile.gettempdir()+"/vne_bgr.tmp", "rt") as f:
-                cmd = f.read().strip()
+            with open(TMP+"/vne_bgr.tmp", "rt") as f:
+                cmd = f.read().strip().replace("\n", "")
             if cmd:
                 exec(cmd)
-            else:
-                with open(tempfile.gettempdir()+"/vne_bgr.tmp", "wt") as f:
-                    f.write("")
-        except:
-            pass
+        except Exception as e:
+            print(traceback.format_exc(e))
         try:
-            with open(tempfile.gettempdir()+"/vne_fgr.tmp", "rt") as f:
+            with open(TMP+"/vne_fgr.tmp", "rt") as f:
                 cmd = f.read().strip()
             if cmd:
                 exec(cmd)
-            else:
-                with open(tempfile.gettempdir()+"/vne_fgr.tmp", "wt") as f:
-                    f.write("")
-        except:
-            pass
+        except Exception as e:
+            try:
+                print(traceback.format_exc(e))
+            except: pass
         try:
             win.surf.blit(sysind_fnt.render(
                 str(int(clock.get_fps())), 1, sysind_fg), (10, 10))

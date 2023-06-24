@@ -66,7 +66,7 @@ class Executor:
 
         self.images: dict[str, Surface] = {}
 
-        self.scene_cmd = r'(lambda: None)()'
+        self.last_bg = r'(lambda: None)()'
 
         self.d_proc = False
         self.d_func = None
@@ -104,9 +104,9 @@ class Executor:
                     self.images[" ".join(cmd[1]["name"])] = image.load(
                         self.res.get_name(cmd[1]["path"]))
                     self.dbg.pop()
-                else:
-                    popup(POPUP_ERROR, "TypeError",
-                          f"({self.func},{self.line}) unsupported operand type for 'load': '{cmd[1]['type']}'")
+                #else:
+                #    popup(POPUP_ERROR, "TypeError",
+                #          f"({self.func},{self.line}) unsupported operand type for 'load': '{cmd[1]['type']}'")
                 self.dbg.pop()
 
             elif cmd[0] == "python":
@@ -134,28 +134,22 @@ class Executor:
                 pass
             elif cmd[0] == "hide":
                 self.dbg += "hide"
+                #with open(TMP+"/vne_bgr.tmp", "wt") as f:
+                #    print(self.last_bg)
+                #    f.write(self.last_bg)
+                with open(TMP+"/vne_fgr.tmp", "wt") as f:
+                    f.write("")
                 self.dbg.pop()
                 pass
             elif cmd[0] == "scene":
                 self.dbg += "scene"
                 if cmd[1]["data"]["type"] == "color":
                     self.dbg += "color"
-                    if cmd[1]["data"]["value"][0] != "#":
-                        self.dbg += "const"
-                        try:
-                            color = super_color(cmd[1]["data"]["value"])
-                        except:
-                            popup(POPUP_ERROR, "ColorError",
-                                  f"({self.func},{self.line}) unknown color name: '{cmd[1]['data']['value']}'")
-                        self.dbg.pop()
-                    else:
-                        self.dbg += "hex"
-                        try:
-                            color = Color(ColorHex(cmd[1]["data"]["value"]))
-                        except:
-                            popup(POPUP_ERROR, "ColorError",
-                                  f"({self.func},{self.line}) invalid color argument")
-                        self.dbg.pop()
+                    try:
+                        color = super_color(cmd[1]["data"]["value"])
+                    except:
+                        popup(POPUP_ERROR, "ColorError",
+                                f"({self.func},{self.line}) invalid color argument")
                     with open(TMP+"/vne_bgr.tmp", "wt") as f:
                         f.write(
                             f'display.get_surface().fill(({color.r}, {color.g}, {color.b}))')

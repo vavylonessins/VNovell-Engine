@@ -7,3 +7,4 @@ saves/projects.ini
 *.vs?code*
 log.txt
 tmp.txt
+___.py
