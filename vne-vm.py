@@ -1,4 +1,4 @@
-from tracer import *
+from profiler import *
 import extui
 import traceback
 
@@ -92,7 +92,7 @@ try:
 
     print(f"[LOG] [{__file__}] Bootstrap vnb pseudo-bytecode")
 
-    execer = vnb.Executor(res, binary, title_fnt)
+    execer = vnb.Executor(res, binary)
 
     def blit_centered(ds, ss):
         pos = tuple(int(i) for i in (Vector2(ds.get_size())/2-Vector2(ss.get_size())/2))
@@ -132,7 +132,7 @@ try:
         mixer.init()
         clock = time.Clock()
         win = ui.Window(name=project["project-name"],
-                        icon=res.get_name(project["window-icon"]))
+                        icon=res.get_name(project["window-icon"]), size=Vector2(0, 0))
         execer.scene = Surface(win.surf.get_size()).convert()
         execer.scene.fill((0, 0, 0))
     except Exception as e:
@@ -149,11 +149,108 @@ try:
 
     win.surf.fill(0)
 
+    fullscreen = False
+
     while execer.process:
         clock.tick(120)
         for e in event.get():
             if e.type == QUIT:
                 execer.stop()
+            if e.type == KEYUP:
+                if e.key == K_F11:
+                    fullscreen = not fullscreen
+                    if fullscreen:
+                        win.size = win.surf.get_size()
+                        win.surf = display.set_mode((0, 0), win.flags | FULLSCREEN)
+                        win.resize(win.surf.get_size())
+                    else:
+                        win.surf = display.set_mode(win.size, win.flags)
+        try:
+            with open(TMP+"/vne_bgr.tmp", "rt") as f:
+                cmd = f.read().strip().replace("\n", "")
+            if cmd:
+                exec(cmd)
+        except Exception as e:
+            print(traceback.format_exc(e))
+        try:
+            with open(TMP+"/vne_fgr.tmp", "rt") as f:
+                cmd = f.read().strip()
+            if cmd:
+                exec(cmd)
+        except Exception as e:
+            try:
+                print(traceback.format_exc(e))
+            except: pass
+        try:
+            win.surf.blit(sysind_fnt.render(
+                str(int(clock.get_fps())), 1, sysind_fg), (10, 10))
+        except:
+            draw.rect(win.surf, sysind_fg, win.rect, 1)
+        display.flip()
+    
+    # main menu
+    print(f"[LOG] [{__file__}] loading menu resources")
+
+    menu_bg = image.load(res.get_name("res://images/ui/menu_bg.png"))
+
+    print(f"[LOG] [{__file__}] starting main menu")
+
+    clock = time.Clock()
+
+    win.surf.fill(0)
+
+    run = 1
+
+    while run:
+        clock.tick(120)
+        for e in event.get():
+            if e.type == QUIT:
+                run = 0
+            if e.type == KEYUP:
+                if e.key == K_F11:
+                    fullscreen = not fullscreen
+                    if fullscreen:
+                        win.size = win.surf.get_size()
+                        win.surf = display.set_mode((0, 0), win.flags | FULLSCREEN)
+                        win.resize(win.surf.get_size())
+                    else:
+                        win.surf = display.set_mode(win.size, win.flags)
+        try:
+            win.surface.blit(menu_bg, (0, 0))
+        except:
+            try:
+                print(traceback.format_exc(e))
+            except: pass
+        display.flip()
+    
+    if not run:
+        sys.exit(0)
+    
+    # call start
+    print(f"[LOG] [{__file__}] vns: call splash")
+    print(f"[LOG] [{__file__}] ...")
+    execer.execute_threaded("splash")
+
+    clock = time.Clock()
+
+    win.surf.fill(0)
+
+    fullscreen = False
+
+    while execer.process:
+        clock.tick(120)
+        for e in event.get():
+            if e.type == QUIT:
+                execer.stop()
+            if e.type == KEYUP:
+                if e.key == K_F11:
+                    fullscreen = not fullscreen
+                    if fullscreen:
+                        win.size = win.surf.get_size()
+                        win.surf = display.set_mode((0, 0), win.flags | FULLSCREEN)
+                        win.resize(win.surf.get_size())
+                    else:
+                        win.surf = display.set_mode(win.size, win.flags)
         try:
             with open(TMP+"/vne_bgr.tmp", "rt") as f:
                 cmd = f.read().strip().replace("\n", "")

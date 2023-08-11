@@ -1,3 +1,7 @@
+"""
+Backend module for multiwindow behavior
+"""
+
 from pygame import *
 from ui_config import *
 import sys

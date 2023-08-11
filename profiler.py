@@ -1,3 +1,7 @@
+"""
+Time profiler
+"""
+
 import time
 
 

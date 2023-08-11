@@ -1,9 +1,9 @@
 root: (func | tcomment)*;
 	func: tname ":" body tend;
 		body: command*;
-			command: sload | ssave | tpython | sscene | sshow | swait | shide | sreplic | sif | smenu | tcomment;
+			command: sload | ssave | sset_font | sreset_font | tpython | sscene | sshow | swait | shide | sreplic | sif | smenu | tcomment;
 				sload: "load" loadable "from" sourcable "as" tname+;
-					loadable: "image" | "var";
+					loadable: "image" | "var" | "font";
 					sourcable: tstring;
 				ssave: "save" sexpr "to" sourcable;
 					sexpr: "(" sexpr ")"
@@ -21,6 +21,8 @@ root: (func | tcomment)*;
 						 | tcolor
 						 | tname
 						 | tnum;
+				sset_font: "set" "font" tname "as" tname;
+				sreset_font: "reset" "font" tname;
 				sif: "if" sexpr ":" body tend;
 				smenu: "menu" tstring ":" menubody tend;
 					menubody: sentry*;
@@ -38,7 +40,7 @@ root: (func | tcomment)*;
 
 terminals
 
-tpython: /\/[^\/]*\//;
+tpython: /\{[^\}]*\}/;
 tcomment: /\$[^\$]*\$/;
 tend: "end.";
 tcolor: /\#[0-9A-Fa-f]{6}|\#[0-9A-Fa-f]{8}/;

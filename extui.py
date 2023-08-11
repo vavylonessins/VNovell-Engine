@@ -1,3 +1,7 @@
+"""
+This module contains functions for multi-window behavior
+"""
+
 import os
 import sys
 import b64

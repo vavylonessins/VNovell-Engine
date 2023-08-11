@@ -1,4 +1,10 @@
-from tracer import *
+"""
+Engine launcher
+"""
+
+
+### SETTING UP LOGGING ###
+from profiler import *
 import traceback
 import extui
 import os
@@ -8,6 +14,7 @@ os.system(("clear", "cls")[os.name == "nt"])
 os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
 
 __file__ = os.path.abspath(__file__)
+### DONE ###
 
 
 try:
@@ -21,6 +28,7 @@ try:
     traceoff()
     print(f"[LOG] [{__file__}] done with {round(get_trace(), 3)} ms")
 
+
     print(f"[LOG] [{__file__}] initializing video...")
     init()
     display.init()
@@ -28,6 +36,7 @@ try:
     mixer.init()
     clock = time.Clock()
     print(f"[LOG] [{__file__}] done")
+
 
     print(f"[LOG] [{__file__}] loading projects list...")
     try:
@@ -37,9 +46,11 @@ try:
         projects = ini.load("./saves/projects.ini")
     print(f"[LOG] [{__file__}] done")
 
+
     print(f"[LOG] [{__file__}] opening widow...")
     win = ui.Window(name="VNovell Engine Launcher", icon="logo.png")
     print(f"[LOG] [{__file__}] done")
+
 
     def wininit(size):
         global win, tit, mas, cn1, cn2, st1, st2, prj, pnl
@@ -62,9 +73,12 @@ try:
                                 cb_run, cb_open_folder], [prj.get_active],
                             rpos=Vector2(margin, 0), spos=Vector2(1, 2), dsiz=Vector2(0, -st2.rect.h))
 
+
     print(f"[LOG] [{__file__}] initializing window...")
     wininit((800, 600))
     print(f"[LOG] [{__file__}] done")
+
+
 
     run = 1
     print(f"[LOG] [{__file__}] main video loop")

@@ -1,3 +1,7 @@
+"""
+Cool multithreading
+"""
+
 from multiprocessing import Process
 from threading import Thread
 

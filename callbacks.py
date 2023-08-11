@@ -1,3 +1,7 @@
+"""
+Module for launcher.py
+Contains listeners for buttons
+"""
 from pygame import *
 from thread import *
 import ini

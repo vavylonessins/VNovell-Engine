@@ -28,8 +28,12 @@ def init(style_file):
 
         def get_pos(self, sc):
             return self.pos
+    
+    _uiasset = UIAsset
 
     class UI:
+
+        UIAsset = _uiasset
 
         class Subtitle(UIAsset):
             def __init__(self, parent, text, rpos=Vector2(0, 0), spos=Vector2(1, 0)):
@@ -341,7 +345,7 @@ def init(style_file):
                         self.pressed = -1
 
         class Window(UIAsset):
-            def __init__(self, size=Vector2(800, 600), flags=RESIZABLE, name="", icon=""):
+            def __init__(self, size=Vector2(1080, 720), flags=RESIZABLE, name="", icon=""):
                 self.pos = Vector2(0, 0)
                 self.rect = Rect(0, 0, *size)
                 display.set_caption(name)
@@ -356,4 +360,6 @@ def init(style_file):
 
             def resize(self, size):
                 self.rect = Rect(0, 0, *size)
+        
+    del _uiasset
     return UI

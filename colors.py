@@ -1,3 +1,7 @@
+"""
+Sugar for color format translation
+"""
+
 from pygame import *
 
 

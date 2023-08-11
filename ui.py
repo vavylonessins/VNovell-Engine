@@ -1,4 +1,4 @@
-from tracer import *
+from profiler import *
 from ui_config import *
 from pygame import *
 

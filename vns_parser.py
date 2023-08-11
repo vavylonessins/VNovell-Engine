@@ -74,6 +74,8 @@ actions = {
     "shide": lambda _, n: Node("hide", {"effect": n[2]}),
     "sreplic": lambda _, n: Node("replic", {"author": None if n[0] is None else n[0][0], "text": ''.join(tuple(n[1]))}),
     "ssave": lambda _, n: Node("nop", {"raw": n.copy()}),
+    "sset_font": lambda _, n: Node("set-font", {"value": n[2], "name": n[4]}),
+    "sreset_font": lambda _, n: Node("reset-font", {"name": n[2]}),
     "sexpr": [
         lambda _, n: n[1],
         lambda _, n: Node("op", {"act": "pow", "ops": (n[0], n[2])}),

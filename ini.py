@@ -1,3 +1,7 @@
+"""
+INI file loading module
+"""
+
 def load(fp: str) -> dict:
     with open(fp, "rt") as f:
         data = f.read()
